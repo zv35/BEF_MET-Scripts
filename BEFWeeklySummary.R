@@ -3,17 +3,38 @@
 #0 6 * * 1 Rscript '/Users/jml684/Dropbox (NAU)/BEF Met Data 2012/BEFWeeklySummary.R'
 
 
-# IMPORTANT: If running on a different system,
-# make sure that these directories are correct!
-# TODO use a different method for selecting directories...
+# IMPORTANT
+# 
+# Note that if there is spaces in the path, a backspace (for mac/linux) must be affixed
+# otherwise it will interprit it as seprate paths. Pressing the tab key while typing
+# out the path should auto-complete this.
+# 
+# If you want to output the plots to a different directory from the data directory,
+# just add it as a second argument
+#
+# EXAMPLES
+# To read from the Dropbox and write to the plot directory within:
+# Rscript ./BEFWeeklySummary.R /home/[user]/Dropbox/BEF\ Data\ 2012/
+# To output to a separate directory
+# Rscript ./BEFWeeklySummary.R /home/[user]/Documents/plots/
+args = commandArgs(trailingOnly=TRUE)
+if (length(args)==0) {
+	stop("No path to the data directory was given!")
+} else if (length(args)==1){
+	input_dir <- args[1]
+	# if no output dir is given, assume plots within data dir
+	output_dir <- paste0(args[1], "/plots/")
+	#create if not exist
+	dir.create(output_dir, showWarnings = FALSE)
+} else if (length(args)==2){
+	input_dir <- args[1]
+	output_dir <- args[2]
+} else {
+	stop("Too many arguments were given!")
+}
 
-# path to the folder contains the data
-input_dir <- '/home/zakv/Dropbox/BEF Met Data 2012/'
-# path to put the outputs
-output_dir <- '/home/zakv/Dropbox/BEF Met Data 2012/plots/'
-
-#create if not exist
-dir.create(output_dir, showWarnings = FALSE)
+print(input_dir)
+print(output_dir)
 
 #load required libraries
 if(!require(data.table)) {
