@@ -18,7 +18,7 @@ dropbox start >> $SCRIPT_DIR/log.txt
 # Generate the plots
 cd "$DROPBOX_DIR"
 echo "Generating Plots..." >> $SCRIPT_DIR/log.txt
-Rscript BEFWeeklySummary.R 2>> $SCRIPT_DIR/log.txt
+Rscript BEFWeeklySummary.R "$DROPBOX_DIR" 2>> $SCRIPT_DIR/log.txt
 
 # Email the plots
 cd $SCRIPT_DIR
@@ -30,3 +30,4 @@ mutt -s "BEF Weekly Summary for $(date +'%D')" \
 	-c zgv4@nau.edu \
 	-c ddb348@nau.edu \
 	-- Andrew.Richardson@nau.edu < ${SCRIPT_DIR%%/}/email_template.txt
+

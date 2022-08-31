@@ -33,8 +33,6 @@ if (length(args)==0) {
 	stop("Too many arguments were given!")
 }
 
-print(input_dir)
-print(output_dir)
 
 #load required libraries
 if(!require(data.table)) {
