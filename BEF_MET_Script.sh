@@ -14,6 +14,7 @@ date >> $SCRIPT_DIR/log.txt
 
 # Sometimes dropbox wont autostart
 dropbox start >> $SCRIPT_DIR/log.txt
+sleep 120 # Give dropbox enough time to sync
 
 # Generate the plots
 cd "$DROPBOX_DIR"
