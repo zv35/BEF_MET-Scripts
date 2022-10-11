@@ -18,8 +18,7 @@
 # To read from the Dropbox and write to the plot directory within:
 # Rscript ./BEFWeeklySummary.R /home/[user]/Dropbox/BEF\ Data\ 2012/
 # To output to a separate directory
-# Rscript ./BEFWeeklySummary.R /home/[user]/Documents/plots/
-
+# Rscript ./BEFWeeklySummary.R /home/[user]/Dropbox/BEF\ Data\ 2012/ /home/[user]/Documents/plots/
 
 args = commandArgs(trailingOnly=TRUE)
 if (length(args)==0) {
@@ -27,16 +26,19 @@ if (length(args)==0) {
 } else if (length(args)==1){
 	input_dir <- args[1]
 	# if no output dir is given, assume plots within data dir
+	print("No output Directory was specified.")
 	output_dir <- paste0(args[1], "/plots/")
 	#create if not exist
 	dir.create(output_dir, showWarnings = FALSE)
-} else if (length(args)==2){
+} else {
 	input_dir <- args[1]
 	output_dir <- args[2]
-} else {
-	stop("Too many arguments were given!")
 }
 
+# Check that path actually exists
+if (! file.exists(input_dir) || ! file.exists(output_dir)) {
+    stop("The specified path(s) does not exist!")
+}
 
 #load required libraries
 if(!require(data.table)) {
