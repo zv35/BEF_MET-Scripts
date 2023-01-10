@@ -101,13 +101,13 @@ axis.POSIXct(1, date_range, format = "%d %b")
 flux_soil_data[as.Date(TIMESTAMP) %in% date_range, plot(TIMESTAMP, T_Avg, col = "#CC0000", type = 'l', ylab = 'Temperature (°C)', xaxt = "n")]
 axis.POSIXct(1, date_range, format = "%d %b")
 
-flux_soil_data[as.Date(TIMESTAMP) %in% date_range, plot(TIMESTAMP, U_Avg, col = "#FF6600", type = 'l', ylab = 'Wind Speed, u (m/s)', xaxt = "n")]
+flux_soil_data[as.Date(TIMESTAMP) %in% date_range, plot(TIMESTAMP, U_Avg, col = "#FF6600", type = 'l', ylim=c(-6,6), ylab = 'Wind Speed, u (m/s)', xaxt = "n")]
 axis.POSIXct(1, date_range, format = "%d %b")
 
-flux_soil_data[as.Date(TIMESTAMP) %in% date_range, plot(TIMESTAMP, V_Avg, col = "#66CC66", type = 'l', ylab = 'Wind Speed, v (m/s)', xaxt = "n")]
+flux_soil_data[as.Date(TIMESTAMP) %in% date_range, plot(TIMESTAMP, V_Avg, col = "#66CC66", type = 'l', ylim=c(-6,6), ylab = 'Wind Speed, v (m/s)', xaxt = "n")]
 axis.POSIXct(1, date_range, format = "%d %b")
 
-flux_soil_data[as.Date(TIMESTAMP) %in% date_range, plot(TIMESTAMP, W_Avg, col="#003366", type = 'l', ylab = 'Wind Speed, w (m/s)', xaxt = "n")]
+flux_soil_data[as.Date(TIMESTAMP) %in% date_range, plot(TIMESTAMP, W_Avg, col="#003366", type = 'l', ylim=c(-1,1), ylab = 'Wind Speed, w (m/s)', xaxt = "n")]
 axis.POSIXct(1, date_range, format = "%d %b")
 
 dev.off()
@@ -153,7 +153,7 @@ met_data[as.Date(TIMESTAMP) %in% date_range, lines(TIMESTAMP, TairHMP, col = "#0
 axis.POSIXct(1, date_range, format = "%d %b")
 legend('topright', legend = c('TairPlat', 'TairHMP'), col = c("#FF6600", "#000099"), bty = 'n', lwd =2)
 
-met_data[as.Date(TIMESTAMP) %in% date_range, plot(TIMESTAMP, PPFD1, col = "#003300", type = 'l', ylab = 'PPFD (μmol/sm2)', xaxt = "n")]
+met_data[as.Date(TIMESTAMP) %in% date_range, plot(TIMESTAMP, PPFD1, col = "#003300", type = 'l', ylim = c(0, 2500), ylab = 'PPFD (μmol/sm2)', xaxt = "n")]
 met_data[as.Date(TIMESTAMP) %in% date_range, lines(TIMESTAMP, PPFD2, col = "#66CC66")]
 axis.POSIXct(1, date_range, format = "%d %b")
 legend('topleft', legend = c('PPFD1', 'PPFD2'), col = c("#003300", "#66CC66"), bty = 'n', lwd =2)
@@ -166,7 +166,7 @@ met_data[as.Date(TIMESTAMP) %in% date_range, lines(TIMESTAMP, Tsoil2, col  = "#F
 axis.POSIXct(1, date_range, format = "%d %b")
 legend('bottomright', legend = c('Tsoil1', 'Tsoil2'), col = c("#666666", "#FF6600"), bty = 'n', lwd =2)
 
-met_data[as.Date(TIMESTAMP) %in% date_range, plot(TIMESTAMP, Kipp1, col = 1, type = 'l', ylab = 'Shortwave Radiation (W/m2)', xaxt = "n")]
+met_data[as.Date(TIMESTAMP) %in% date_range, plot(TIMESTAMP, Kipp1, col = 1, type = 'l', ylim = c(0, 1500), ylab = 'Shortwave Radiation (W/m2)', xaxt = "n")]
 met_data[as.Date(TIMESTAMP) %in% date_range, lines(TIMESTAMP, Kipp2, col ="#FFCC00")]
 axis.POSIXct(1, date_range, format = "%d %b")
 legend('topright', legend = c('Kipp1', 'Kipp2'), col = c(1, "#FFCC00"), bty = 'n', lwd =2)

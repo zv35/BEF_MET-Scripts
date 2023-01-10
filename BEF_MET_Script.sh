@@ -16,14 +16,16 @@ date >> $SCRIPT_DIR/log.txt
 dropbox start >> $SCRIPT_DIR/log.txt
 sleep 120 # Give dropbox enough time to sync
 
+# Pre-process data
+#echo "Running pre-process checks..." >> $SCRIPT_DIR/log.txt
+
 # Generate the plots
-cd "$DROPBOX_DIR"
-echo "Generating Plots..." >> $SCRIPT_DIR/log.txt
-Rscript BEFWeeklySummary.R "$DROPBOX_DIR" 2>> $SCRIPT_DIR/log.txt
+echo "Generating plots..." >> $SCRIPT_DIR/log.txt
+Rscript ${SCRIPT_DIR%%/}/BEFWeeklySummary.R "$DROPBOX_DIR" "$DROPBOX_DIR/plots/" \
+    2>> $SCRIPT_DIR/log.txt
 
 # Email the plots
-cd $SCRIPT_DIR
-echo "Sending Email..." >> $SCRIPT_DIR/log.txt
+echo "Sending email..." >> $SCRIPT_DIR/log.txt
 mutt -s "BEF Weekly Summary for $(date +'%D')" \
 	-a "${DROPBOX_DIR%%/}/plots/files_5HzData_count.png" \
 	-a "${DROPBOX_DIR%%/}/plots/flux_soil_data.png" \
