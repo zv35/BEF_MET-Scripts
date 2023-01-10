@@ -122,7 +122,10 @@ met_data <- fread(paste0(input_dir, 'MET 21X_final_storage_1.csv'), skip = 1)
 met_data[V3==2400, V2:=V2+1]
 met_data[V3==2400, V3:=0]
 
-met_data <- met_data[, .(TIMESTAMP = as.POSIXct(sprintf('%s %02d:%02d:00', as.Date('2021-12-31')+V2, floor(V3/100), V3%%100)),
+met_data <- met_data[, .(TIMESTAMP = as.POSIXct(sprintf('%s %02d:%02d:00', 
+                     # Date needs to be new years eve of last year + DOY
+                     # Used to be hardcoded, Why?
+                     as.Date(Sys.Date() - 365 + V2), floor(V3/100), V3%%100)),
                          BattV = V4,
                          TairPlat = V7,
                          TairHMP = V8,
@@ -144,6 +147,7 @@ par(mfcol = c(3,2), mar = c(3,4,1,2))
 #lty= 1 for solid line
 #col= ‘#ff000080' the 80 is half way to ff for full opacity
 #lwd= 1 for line width
+
 
 met_data[as.Date(TIMESTAMP) %in% date_range, plot(TIMESTAMP, BattV, col= "#FF6600", type = 'l', ylab = 'Batt (V)', xaxt = "n")]
 axis.POSIXct(1, date_range, format = "%d %b")
