@@ -48,6 +48,7 @@ if(!require(data.table)) {
 
 # today's date
 today <- Sys.Date()
+curYear <- format(today, format = "%Y")
 
 # date range to plot
 # date_range <- today - c(33:26)
@@ -122,10 +123,11 @@ met_data <- fread(paste0(input_dir, 'MET 21X_final_storage_1.csv'), skip = 1)
 met_data[V3==2400, V2:=V2+1]
 met_data[V3==2400, V3:=0]
 
+
 met_data <- met_data[, .(TIMESTAMP = as.POSIXct(sprintf('%s %02d:%02d:00', 
                      # Date needs to be new years eve of last year + DOY
                      # Used to be hardcoded, Why?
-                     as.Date(Sys.Date() - 365 + V2), floor(V3/100), V3%%100)),
+                     as.Date(paste0(curYear, '-12-31')) - 365 + V2, floor(V3/100), V3%%100)),
                          BattV = V4,
                          TairPlat = V7,
                          TairHMP = V8,
@@ -136,6 +138,7 @@ met_data <- met_data[, .(TIMESTAMP = as.POSIXct(sprintf('%s %02d:%02d:00',
                          Tsoil2 = V11,
                          Kipp1 = V20,
                          Kipp2 = V21)]
+
 
 png(paste0(output_dir, 'met_data.png'), width = 6, height = 7, units = 'in', res = 300)
 
