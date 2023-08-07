@@ -80,7 +80,7 @@ dev.off()
 
 
 # flux and soil data
-flux_soil_data <- fread(paste0(input_dir, 'FLUX+SOIL_halfhour.csv'), skip = 1)
+flux_soil_data <- fread(paste0(input_dir, 'CR1000_halfhour.csv'), skip = 1)
 flux_soil_data <- flux_soil_data[-(1:2), .(TIMESTAMP = as.POSIXct(TIMESTAMP),
                                            CO2_Avg = as.numeric(CO2_Avg),
                                            H2O_Avg = as.numeric(H2O_Avg),
@@ -118,7 +118,7 @@ dev.off()
 
 # met data
 # Read in csv
-met_data <- fread(paste0(input_dir, 'MET 21X_final_storage_1.csv'), skip = 1)
+met_data <- fread(paste0(input_dir, 'Bartlett 21x Final.csv'), skip = 1)
 # Correct the date
 met_data[V3==2400, V2:=V2+1]
 met_data[V3==2400, V3:=0]
