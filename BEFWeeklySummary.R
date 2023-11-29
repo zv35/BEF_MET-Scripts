@@ -119,7 +119,7 @@ dev.off()
 # met data
 # Read in csv
 met_data <- fread(paste0(input_dir, 'Bartlett 21x Final.csv'), skip = 1,
-                  blank.lines.skip = TRUE, select = 1:29)
+                  blank.lines.skip = TRUE, select = 1:29, fill = TRUE)
 # Correct the date
 met_data[V3==2400, V2:=V2+1]
 met_data[V3==2400, V3:=0]
