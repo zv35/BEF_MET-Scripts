@@ -30,5 +30,6 @@ mutt -s "BEF Weekly Summary for $(date --iso-8601)" \
 	-c zgv4@nau.edu \
 	-c ddb348@nau.edu \
 	-c Andrew.Ouimette@usda.gov \
+    -c Sean.Ashe@usda.gov \
 	-- Andrew.Richardson@nau.edu < ${SCRIPT_DIR%%/}/email_template.txt
 
