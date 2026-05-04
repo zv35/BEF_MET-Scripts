@@ -5,12 +5,16 @@
 # It should be ran automatically every Monday at around 6am
 # via a cronjob for my user
 
-# Paths to the mounted dropbox drive and this script
-SCRIPT_DIR=/home/zakv/Documents/BEF_MET/
-DROPBOX_DIR=/home/zakv/Dropbox/BEF\ Met\ Data\ 2012/
-
+# Flush log
 echo "" >> $SCRIPT_DIR/log.txt
 date >> $SCRIPT_DIR/log.txt
+
+# Load in .env file
+if [ ! -f ".env" ]; then
+    echo "No environment file found!" >> $SCRIPT_DIR/log.txt
+    exit
+fi
+source .env
 
 # Sometimes dropbox wont autostart
 dropbox start >> $SCRIPT_DIR/log.txt
@@ -27,9 +31,10 @@ mutt -s "BEF Weekly Summary for $(date --iso-8601)" \
 	-a "${DROPBOX_DIR%%/}/plots/files_5HzData_count.png" \
 	-a "${DROPBOX_DIR%%/}/plots/flux_soil_data.png" \
 	-a "${DROPBOX_DIR%%/}/plots/met_data.png" \
-	-c zgv4@nau.edu \
-	-c ddb348@nau.edu \
-	-c Andrew.Ouimette@usda.gov \
-    -c Sean.Ashe@usda.gov \
-	-- Andrew.Richardson@nau.edu < ${SCRIPT_DIR%%/}/email_template.txt
+	-c $CC_EMAIL1 \
+	-c $CC_EMAIL2 \
+	-c $CC_EMAIL3 \
+	-c $CC_EMAIL4 \
+	-c $CC_EMAIL5 \
+	-- $PRIMARY_EMAIL < ${SCRIPT_DIR%%/}/email_template.txt
 
